@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Peace-of-mind/static/css/main.2813179b.chunk.css",
-    "main.js": "/Peace-of-mind/static/js/main.e688c55c.chunk.js",
-    "main.js.map": "/Peace-of-mind/static/js/main.e688c55c.chunk.js.map",
+    "main.js": "/Peace-of-mind/static/js/main.7d0ee9d3.chunk.js",
+    "main.js.map": "/Peace-of-mind/static/js/main.7d0ee9d3.chunk.js.map",
     "runtime-main.js": "/Peace-of-mind/static/js/runtime-main.efaf6064.js",
     "runtime-main.js.map": "/Peace-of-mind/static/js/runtime-main.efaf6064.js.map",
     "static/css/2.383c0125.chunk.css": "/Peace-of-mind/static/css/2.383c0125.chunk.css",
@@ -20,6 +20,6 @@
     "static/css/2.383c0125.chunk.css",
     "static/js/2.cba51553.chunk.js",
     "static/css/main.2813179b.chunk.css",
-    "static/js/main.e688c55c.chunk.js"
+    "static/js/main.7d0ee9d3.chunk.js"
   ]
 }
