@@ -15,7 +15,9 @@ const getUserBoard = () => {
 };
 
 
-export default {
+const service = {
     getPublicContent,
     getUserBoard,
 };
+
+export default service;
