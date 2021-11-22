@@ -12,8 +12,6 @@ import Profile from "./components/Profile";
 import BoardUser from "./components/BoardUser";
 
 const App = () => {
-    const [showModeratorBoard, setShowModeratorBoard] = useState(false);
-    const [showAdminBoard, setShowAdminBoard] = useState(false);
     const [currentUser, setCurrentUser] = useState(undefined);
 
     useEffect(() => {
@@ -21,8 +19,6 @@ const App = () => {
 
         if (user) {
             setCurrentUser(user);
-            setShowModeratorBoard(user.roles.includes("ROLE_MODERATOR"));
-            setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
         }
     }, []);
 
@@ -34,7 +30,7 @@ const App = () => {
         <div>
             <nav className="navbar navbar-expand navbar-dark bg-dark">
                 <Link to={"/"} className="navbar-brand">
-                    bezKoder
+                    Peace of Mind
                 </Link>
                 <div className="navbar-nav mr-auto">
                     <li className="nav-item">
@@ -43,36 +39,13 @@ const App = () => {
                         </Link>
                     </li>
 
-                    {showModeratorBoard && (
-                        <li className="nav-item">
-                            <Link to={"/mod"} className="nav-link">
-                                Moderator Board
-                            </Link>
-                        </li>
-                    )}
-
-                    {showAdminBoard && (
-                        <li className="nav-item">
-                            <Link to={"/admin"} className="nav-link">
-                                Admin Board
-                            </Link>
-                        </li>
-                    )}
-
-                    {currentUser && (
-                        <li className="nav-item">
-                            <Link to={"/user"} className="nav-link">
-                                User
-                            </Link>
-                        </li>
-                    )}
                 </div>
 
                 {currentUser ? (
                     <div className="navbar-nav ml-auto">
                         <li className="nav-item">
                             <Link to={"/profile"} className="nav-link">
-                                {currentUser.username}
+                                {currentUser.nombre}
                             </Link>
                         </li>
                         <li className="nav-item">

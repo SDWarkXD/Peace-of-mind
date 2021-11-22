@@ -4,7 +4,10 @@ import authHeader from "./auth-header";
 const API_URL = "https://peace-of-mind-backend.herokuapp.com/v1/";
 
 const getPublicContent = () => {
-    return axios.get(API_URL + "enfermedades");
+    return fetch(API_URL + "enfermedades").then(
+        (data) => data.json()
+    )
+
 };
 
 const getUserBoard = () => {

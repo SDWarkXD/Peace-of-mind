@@ -2,25 +2,35 @@ import axios from "axios";
 
 const API_URL = "https://peace-of-mind-backend.herokuapp.com/v1/";
 
-const register = (username, email, password) => {
+const register = (nombre, apellidos, username, password, tipoUsuario) => {
     return axios.post(API_URL + "usuarios", {
-        username,
-        email,
-        password,
+        "nombre": nombre,
+        "apellidos": apellidos,
+        "usuario": username,
+        "password": password,
+        "tipoUsuario": tipoUsuario
+    })
+    .then((response) => {
+        if (response.data.token) {
+            localStorage.setItem("user", JSON.stringify(response.data));
+        }
+
+        return response.data;
     });
 };
 
 const login = (username, password) => {
     return axios
         .post(API_URL + "/usuarios/entrar", {
-            username,
-            password,
+            "usuario": username,
+            "password": password,
         })
         .then((response) => {
-            if (response.data.accessToken) {
+            console.log(response);
+            if (response.data.token) {
                 localStorage.setItem("user", JSON.stringify(response.data));
             }
-
+    
             return response.data;
         });
 };

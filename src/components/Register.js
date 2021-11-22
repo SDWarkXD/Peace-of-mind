@@ -1,8 +1,8 @@
 import React, { useState, useRef } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
+import Select from "react-validation/build/select";
 import CheckButton from "react-validation/build/button";
-import { isEmail } from "validator";
 
 import AuthService from "../services/auth.service";
 
@@ -15,17 +15,6 @@ const required = (value) => {
         );
     }
 };
-
-const validEmail = (value) => {
-    if (!isEmail(value)) {
-        return (
-            <div className="alert alert-danger" role="alert">
-                This is not a valid email.
-            </div>
-        );
-    }
-};
-
 const vusername = (value) => {
     if (value.length < 3 || value.length > 20) {
         return (
@@ -50,20 +39,29 @@ const Register = (props) => {
     const form = useRef();
     const checkBtn = useRef();
 
+    const [nombre, setNombre] = useState("");
+    const [apellidos, setApellidos] = useState("");
+    const [tipoUsuario, setTipoUsuario] = useState("");
     const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [successful, setSuccessful] = useState(false);
     const [message, setMessage] = useState("");
 
+    const onChangeNombre = (e) => {
+        const nombre = e.target.value;
+        setNombre(nombre);
+    };
+    const onChangeApellidos = (e) => {
+        const apellidos = e.target.value;
+        setApellidos(apellidos);
+    };
+    const onChangeTipoUsuario = (e) => {
+        const tipoUsuario = e.target.value;
+        setTipoUsuario(tipoUsuario);
+    };
     const onChangeUsername = (e) => {
         const username = e.target.value;
         setUsername(username);
-    };
-
-    const onChangeEmail = (e) => {
-        const email = e.target.value;
-        setEmail(email);
     };
 
     const onChangePassword = (e) => {
@@ -80,16 +78,15 @@ const Register = (props) => {
         form.current.validateAll();
 
         if (checkBtn.current.context._errors.length === 0) {
-            AuthService.register(username, email, password).then(
+            AuthService.register(nombre, apellidos, username, password, tipoUsuario).then(
                 (response) => {
-                    setMessage(response.data.message);
+                    setMessage(response.usuario);
                     setSuccessful(true);
                 },
                 (error) => {
                     const resMessage =
                         (error.response &&
-                            error.response.data &&
-                            error.response.data.message) ||
+                            error.response.usuario) ||
                         error.message ||
                         error.toString();
 
@@ -113,6 +110,39 @@ const Register = (props) => {
                     {!successful && (
                         <div>
                             <div className="form-group">
+                                <label htmlFor="nombre">Nombre</label>
+                                <Input
+                                    type="text"
+                                    className="form-control"
+                                    name="nombre"
+                                    value={nombre}
+                                    onChange={onChangeNombre}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="apellidos">Apellidos</label>
+                                <Input
+                                    type="text"
+                                    className="form-control"
+                                    name="apellidos"
+                                    value={apellidos}
+                                    onChange={onChangeApellidos}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="tipoUsuario">Tipo de Usuario</label>
+                                <Select name='tipoUsuario' 
+                                    className="form-control"
+                                    value={tipoUsuario}
+                                    onChange={onChangeTipoUsuario}
+                                    validations={[required]}>
+                                    <option value='indirecto'>Indirecto</option>
+                                    <option value='directo'>Directo</option>
+                                    <option value='externo'>Externo</option>
+                                </Select>
+                            </div>
+                            
+                            <div className="form-group">
                                 <label htmlFor="username">Username</label>
                                 <Input
                                     type="text"
@@ -123,19 +153,6 @@ const Register = (props) => {
                                     validations={[required, vusername]}
                                 />
                             </div>
-
-                            <div className="form-group">
-                                <label htmlFor="email">Email</label>
-                                <Input
-                                    type="text"
-                                    className="form-control"
-                                    name="email"
-                                    value={email}
-                                    onChange={onChangeEmail}
-                                    validations={[required, validEmail]}
-                                />
-                            </div>
-
                             <div className="form-group">
                                 <label htmlFor="password">Password</label>
                                 <Input
@@ -160,7 +177,7 @@ const Register = (props) => {
                                 className={successful ? "alert alert-success" : "alert alert-danger"}
                                 role="alert"
                             >
-                                {message}
+                                Bienvenido {message}
                             </div>
                         </div>
                     )}
