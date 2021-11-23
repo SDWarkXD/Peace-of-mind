@@ -28,7 +28,7 @@ const App = () => {
 
     return (
         <div>
-            <nav className="navbar navbar-expand navbar-dark bg-dark">
+            <nav className="navbar navbar-expand navbar-dark bg-dark p-3">
                 <Link to={"/"} className="navbar-brand">
                     Peace of Mind
                 </Link>
